@@ -1,0 +1,206 @@
+#include <stdio.h>
+void inputs(int array[], int);
+void display (int* array, int);
+int findMin(int* array, int);
+int findMax(int* array, int);
+int findSum(int* array, int);
+float findMean(int* array, int);
+char contains(int* array, int, int);
+char isThereANegative(int* array, int);
+int isThereAPrimeNumber(int array[], int);
+void reverse(int array [], int);
+
+int main()
+{
+    int size;
+    printf("Enter array size: ");
+    scanf("%d", &size);
+
+    int array[size];
+    inputs(array, size);
+    display(array, size);
+
+    printf("\nThe min is %d", findMin(array, size));
+    printf("\nThe Max is %d", findMax(array, size));
+    printf("\nThe sum of the array is %d", findSum(array, size));
+    printf("\nThe mean of the array is %.2f", findMean(array, size));
+
+    int check;
+    printf("\nCheck number: ");
+    scanf("%d", &check);
+    printf("\nDoes it contain %d?: %c", check, contains(array, size, check));
+    printf("\nIs there a negative? %c", isThereANegative(array, size));
+    printf("\nIs there a prime number? %d", isThereAPrimeNumber(array, size));
+
+    reverse(array, size);
+    display(array, size);
+
+    return 0;
+}
+
+void inputs(int array[], int n)
+{
+    for (int i=0; i < n; i++) {
+        printf("Enter value for index %d: ",i);
+        scanf("%d", &array[i]);
+    }
+}
+
+void display(int *array, int n)
+{
+    for (int i=0; i < n; i++) {
+        printf("\nValue for array[%d] : %d",i, array[i]);
+    }
+}
+
+int findMin(int* array, int n)
+{
+    int min = array[0];
+    for (int i=1; i < n; i++) {
+        if(array[i]<min)
+        {
+            min = array[i];
+        }
+    }
+    return min;
+}
+
+int findMax(int* array, int n)
+{
+    int max = array[0];
+    for (int i=1; i < n; i++) {
+        if(array[i]>max)
+        {
+            max = array[i];
+        }
+    }
+    return max;
+}
+
+int findSum(int* array, int n)
+{
+    int sum = 0;
+    for(int i = 0; i<n; i++)
+    {
+        sum += array[i];
+    }
+    return sum;
+}
+
+float findMean(int* array, int n)
+{
+    float mean, sum = 0;
+    for(int i = 0; i<n; i++)
+    {
+        sum += array[i];
+    }
+    mean = sum/n;
+    return mean;
+}
+
+char contains(int* array, int n, int x)
+{
+    int j = 0;
+    for(int i = 0; i<n; i++)
+    {
+        if(array[i]==x)
+        {
+            return 'y';
+            break;
+        }
+        j++;
+    }
+    if(j==n)
+    {
+        return 'n';
+    }
+}
+
+char isThereANegative(int* array, int n)
+{
+    int j = 0, zero = 0;
+    for(int i = 0; i<n; i++)
+    {
+        if(array[i]<zero)
+        {
+            return 'y';
+            break;
+        }
+        j++;
+    }
+    if(j==n)
+    {
+        return 'n';
+    }
+}
+
+int isThereAPrimeNumber(int array[], int n)
+{
+    int holder, prime = 0, nonprime = 0;
+    for(int i = 0; i<n; i++)
+    {
+        holder = isPrime(array[i]);
+        if(holder=1)
+        {
+            prime++;
+        }
+        else
+        {
+            nonprime--;
+        }
+    }
+}
+
+int isPrime(int n)
+{
+    int count = 0
+    if(n%2!=0 && n%3!=0)
+    {
+        return ;
+    }
+    else{
+        printf("Not Prime");
+    }
+}
+
+/*int isThereAPrimeNumber(int array[], int n)
+{
+    int prime = 0;
+    int nonprime = 0;
+    int count = 0;
+    for(int i = 0; i<n; i++)
+    {
+        if(array[i]==0||array[i]==1){
+            nonprime++;
+        }
+        if(array[i]==2){
+            prime++;
+        }
+        if(array[i]%2!=0){
+            prime++;
+        }
+    }
+    if(prime>0)
+    {
+        count = 1;
+    } 
+    else
+    {
+        count = 0;
+    }
+    printf("\n%d %d", prime, nonprime);
+    return count;
+
+}
+
+void reverse(int array[], int n)
+{
+    int revarray[n];
+    for(int i = 0; i<n; i++)
+    {
+       revarray[i] = array[n-1-i];
+    }
+    for (int i = 0; i < n; i++) {
+        array[i] = revarray[i];
+    }
+}*/

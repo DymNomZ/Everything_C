@@ -1,0 +1,78 @@
+#include <stdio.h>
+
+#define MAX 10
+typedef int BitSet[MAX];
+
+void initialize(BitSet set); // make set empty
+void display(char* name,BitSet set); 
+void add(BitSet set,int x);
+void getUnion(BitSet result,BitSet s1,BitSet s2);
+void getIntersection(BitSet result,BitSet s1,BitSet s2);
+void getDifference(BitSet result,BitSet s1,BitSet s2);
+int isSubset(BitSet s1,BitSet s2);
+int areDisjoint(BitSet s1,BitSet s2);
+int isUniversal(BitSet set);
+int isEmpty(BitSet set);
+int cardinality(BitSet set);
+
+void main(){
+    BitSet result, s1, s2;
+    initialize(s1); // empty
+    initialize(s2);
+    display("s2",s2);
+    add(s1,2);
+    add(s1,5);
+    add(s1,7);
+    add(s1,9);
+    display("s1",s1);
+    add(s2,2);
+    add(s2,4);
+    add(s2,7);
+    add(s2,8);
+    display("s2",s2);
+    getUnion(result,s1,s2);
+    display("s1 U s2",result);
+    
+}
+
+void initialize(BitSet set){
+    for (int i=0; i < MAX; i++){
+        set[i] = 0;
+    }    
+}
+
+void display(char* name,BitSet set) {
+    printf("\n%s = {",name); 
+    for (int i=0; i < MAX; i++){
+        if (set[i]==1) { // or if (set[i])
+            printf("%d ",i);
+        }    
+    }   
+    printf("}");
+}
+
+void add(BitSet set,int x){
+    if (x >=0 && x < MAX) {
+        set[x] = 1;
+    }    
+}
+
+void getUnion(BitSet result,BitSet s1,BitSet s2){
+    for(int i=0; i< MAX; i++) {
+        result[i] = s1[i] || s2[i];
+    }
+}
+
+
+/*
+void getUnion(BitSet result,BitSet s1,BitSet s2){
+    for(int i=0; i< MAX; i++) {
+        if (s1[i]==1 || s2[i]==1) {
+            result[i]=1;    
+        }
+        else {
+            result[i]=0;
+        }
+    }
+    
+}*/
