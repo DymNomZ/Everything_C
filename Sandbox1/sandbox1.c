@@ -51,9 +51,6 @@ void pyramid(int size){
         for(int star = 1; star <= (row+1)*2-1; star++){
             printf("*");
         }
-        for(int space = 0; space < size-row; space++){
-            printf(" ");
-        }
         printf("\n");
     }
 }
@@ -65,9 +62,6 @@ void invertedPyramid(int size){
         }
         for(int star = 1; star < size*2 - row*2; star++){
             printf("*");
-        }
-        for(int space = 0; space < row; space++){
-            printf(" ");
         }
         printf("\n");
     }
@@ -88,14 +82,20 @@ void rhombus(int size){
 void diamond(int size){
     if(size%2==0) size-1;
     for(int rows = 0; rows < (size/2)+1; rows++){
-        for(int space = 0; space < size/2 ; space++){
+        for(int space = 0; space < size/2 - rows; space++){
             printf(" ");
         }
         for(int star = 1; star <= (rows+1)*2-1; star++){
             printf("*");
         }
-        for(int space = 0; space < size/2; space++){
-            printf("n");
+        printf("\n");
+    }
+    for(int rows = 0; rows < (size/2); rows++){
+        for(int space = 0; space <= rows; space++){
+            printf(" ");
+        }
+        for(int star = 1; star < (size/2)*2 - rows*2; star++){
+            printf("*");
         }
         printf("\n");
     }

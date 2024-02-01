@@ -19,7 +19,8 @@ int main(){
     printf("\n");
     invertedPyramid(size);
     printf("\n");
-    rhombus(size);*/
+    rhombus(size);
+    printf("\n");*/
     diamond(size);
 
     return 0;
