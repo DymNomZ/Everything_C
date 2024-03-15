@@ -1,3 +1,5 @@
+#include <stdio.h>
+
 void convertTime(int time, int* hours, int* mins, int* sec){
     *hours = time / 3600;
     *mins = (time % 3600) / 60;
