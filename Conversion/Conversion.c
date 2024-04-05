@@ -7,7 +7,7 @@ void convertTime(int time, int* hours, int* mins, int* sec){
 }
 
 void displayTime(int time, int* hours, int* mins, int* sec){
-    printf("displays %d seconds is equal to %d hour(s), %d minute(s) and %d second(s).", time, *hours, *mins, *sec);
+    printf("%d seconds is equal to %d hour(s), %d minute(s) and %d second(s).", time, *hours, *mins, *sec);
 }
 
 void computeCoin(int coinValue, int* quarter, int* dime, int* penny){

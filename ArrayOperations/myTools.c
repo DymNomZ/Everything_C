@@ -12,6 +12,7 @@ void gotoxy(int x,int y)
 void drawDBox(int x1,int y1, int x2, int y2){
      int row = 0, col = 0;
      for(row = y1; row < y2; row++){
+     gotoxy(35, row);
         for(col = x1; col < x2; col++){
             if(row == 0 && col == 0) printf("%c", 218);
             else if(row == y2-1 && col == 0) printf("%c", 192);
@@ -21,7 +22,6 @@ void drawDBox(int x1,int y1, int x2, int y2){
             else if(col == 0 || col == x2-1) printf("%c", 179);
             else printf(" ");
         }
-        printf("\n");
     }
 }
 
@@ -32,31 +32,31 @@ void menu(){
      while(choice != 11){
      system("cls");
      drawDBox(0, 0, 50, 17);
-     gotoxy(9, 1);
+     gotoxy(45, 1);
      printf("~~~~~~ ARRAY OPERATIONS  ~~~~");
-     gotoxy(16, 3);
+     gotoxy(51, 3);
      printf("1.CREATEArray");
-     gotoxy(16, 4);
+     gotoxy(51, 4);
      printf("2.PRINTArray");
-     gotoxy(16, 5);
+     gotoxy(51, 5);
      printf("3.INSERTAtPos");
-     gotoxy(16, 6);
+     gotoxy(51, 6);
      printf("4.INSERTFront");
-     gotoxy(16, 7);
+     gotoxy(51, 7);
      printf("5.REMOVEAtPos");
-     gotoxy(16, 8);
+     gotoxy(51, 8);
      printf("6.REMOVEItem");
-     gotoxy(16, 9);
+     gotoxy(51, 9);
      printf("7.REMOVEFront");
-     gotoxy(16, 10);
+     gotoxy(51, 10);
      printf("8.LOCATEIndx");
-     gotoxy(16, 11);
+     gotoxy(51, 11);
      printf("9.LOCATEItem");
-     gotoxy(16, 12);
+     gotoxy(51, 12);
      printf("10.SORT(Ascending& Descending");
-     gotoxy(16, 13);
+     gotoxy(51, 13);
      printf("11.EXIT");
-     gotoxy(14, 14);
+     gotoxy(45, 14);
      printf("Enter a valid choice[1-11]: ");
      scanf("%d", &choice);
      gotoxy(0, 18);

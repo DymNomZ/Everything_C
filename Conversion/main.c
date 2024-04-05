@@ -4,6 +4,5 @@
 
 int main(){
     menu();
-    getche();
     return 0;
 }
