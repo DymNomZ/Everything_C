@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include <windows.h>
-
+//COPYRIGHT DYMIER BORGONIA
 COORD coord={0,0};
 void gotoxy(int x,int y)
 {
@@ -12,7 +12,7 @@ void gotoxy(int x,int y)
 void drawDBox(int x1,int y1, int x2, int y2){
      int row = 0, col = 0;
      for(row = y1; row < y2; row++){
-     gotoxy(35, row);
+     	gotoxy(35, row);
         for(col = x1; col < x2; col++){
             if(row == 0 && col == 0) printf("%c", 218);
             else if(row == y2-1 && col == 0) printf("%c", 192);
@@ -26,42 +26,44 @@ void drawDBox(int x1,int y1, int x2, int y2){
 }
 
 void menu(){
-     int choice, size = 13, item, k, prevSize, index, result;
+     int choice, size = 1, item, k, prevSize, index, result;
      int la[100];
      
      while(choice != 11){
      system("cls");
      drawDBox(0, 0, 50, 17);
-     gotoxy(45, 1);
+     gotoxy(46, 1);
      printf("~~~~~~ ARRAY OPERATIONS  ~~~~");
-     gotoxy(51, 3);
+     gotoxy(50, 3);
      printf("1.CREATEArray");
-     gotoxy(51, 4);
+     gotoxy(50, 4);
      printf("2.PRINTArray");
-     gotoxy(51, 5);
+     gotoxy(50, 5);
      printf("3.INSERTAtPos");
-     gotoxy(51, 6);
+     gotoxy(50, 6);
      printf("4.INSERTFront");
-     gotoxy(51, 7);
+     gotoxy(50, 7);
      printf("5.REMOVEAtPos");
-     gotoxy(51, 8);
+     gotoxy(50, 8);
      printf("6.REMOVEItem");
-     gotoxy(51, 9);
+     gotoxy(50, 9);
      printf("7.REMOVEFront");
-     gotoxy(51, 10);
+     gotoxy(50, 10);
      printf("8.LOCATEIndx");
-     gotoxy(51, 11);
+     gotoxy(50, 11);
      printf("9.LOCATEItem");
-     gotoxy(51, 12);
+     gotoxy(50, 12);
      printf("10.SORT(Ascending& Descending");
-     gotoxy(51, 13);
+     gotoxy(50, 13);
      printf("11.EXIT");
-     gotoxy(45, 14);
+     gotoxy(50, 14);
      printf("Enter a valid choice[1-11]: ");
      scanf("%d", &choice);
      gotoxy(0, 18);
      switch(choice){
      	case 1:
+     		printf("Enter size: ");
+     		scanf("%d", &size);
              createArray(la, size);
              system("pause");
              break;
@@ -116,7 +118,6 @@ void menu(){
              printArray(la, size);
              sortDescending(la, size);
              printArray(la, size);
-             sortAscending(la, size); //to reorder array to normal
              system("pause");
              break;
      }

@@ -33,7 +33,7 @@ int inserAtPos(int la[], int size, int item, int k)
     printf("Array is empty, create an array first\n");
     return 0;
     }
-    printf("Enter item: ");
+    printf("Enter items: ");
     scanf("%d", &item);
     printf("Enter position: ");
     scanf("%d", &k);
@@ -96,6 +96,7 @@ int removeItem(int la[], int size, int item){
           return size - 1;
           }
 	}
+	printf("Item not found\n");
 	return -1;
 }
 
