@@ -1,0 +1,14 @@
+check if within:
+
+if(A.x == B.x && A.y == B.y) return {x, y, 0, 0}
+else if(A.x > B.x || A.y > B.y)
+	if A.y <= B.y+h || A.y >= B.y
+		if A.x <= B.x+w || A.x >= B.x
+			return x, y, w = B.x+w - A.x, h = B.y+h - A.y
+
+ else if(B.x > A.x || B.y > A.y)
+	if B.y <= A.y+h || B.y >= A.y
+		if B.x <= A.x+w || B.x >= A.x
+			return x, y, w = A.x+w - B.x, h = A.y+h - B.y
+
+return 0, 0, 0, 0
