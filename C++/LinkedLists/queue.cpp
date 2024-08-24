@@ -9,13 +9,12 @@ Queue::Queue(){
 }
 
 void Queue::enqueue(int val){
-    if(head == NULL){
+    if(tail == NULL){
         head = (Node*)calloc(1, sizeof(Node));
-        tail = (Node*)calloc(1, sizeof(Node));
         //tail = (Node*)calloc(1, sizeof(Node));
-        tail->data = val;
-        head = tail;
-        tail->next = head;
+        head->data = val;
+        head->next = NULL;
+        tail = head;
     }else{
         head->next = (Node*)calloc(1, sizeof(Node));
         head->next->data = val;
@@ -27,23 +26,25 @@ void Queue::enqueue(int val){
 Node* Queue::dequeue(){
     Node* pck = (Node*)calloc(1, sizeof(Node));
     Node* ptr = tail;
-    if(ptr == NULL){
+    if(tail == NULL){
         cout << "Queue empty, returning -1..." << endl;
         pck->data = -1;
         return pck;
     }
+    
     if(tail->next == NULL){
-        cout << 1;
+        //cout << 1;
         pck = ptr;
         tail = NULL;
         head = NULL;
+        //free(ptr);
         return pck;
     }
     else{
-        cout << 2;
+        //cout << 2;
         tail = tail->next;
         pck = ptr;
-        ptr = NULL;
+        //free(ptr);
         return pck;
     }
 
@@ -69,7 +70,7 @@ void Queue::print(){
         while(ptr != NULL){
             cout << ptr->data << " ";
             ptr = ptr->next;
-            if(head == tail) ptr = NULL; //check if tail and head meet, meaning only one node
+            //if(tail->next == head) ptr = NULL; //check if tail and head meet, meaning only one node
         }
         cout << endl;
     }

@@ -56,6 +56,8 @@ Node* Stack::pop(){
         curr = ptr;
         return pck;
     }
+    free(ptr);
+    free(pck);
 
 }
 
@@ -69,5 +71,5 @@ void Stack::print(){
         }
         cout << endl;
     }
-    
+    free(ptr);
 }
