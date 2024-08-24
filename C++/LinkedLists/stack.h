@@ -5,15 +5,15 @@ class Node {
     Node* next;
 };
 
-class List{
+class Stack{
     Node* head;
     Node* curr = head;
 
     public:
-        List();
+        Stack();
         int peak();
         void push(int);
-        Node pop();
+        Node* pop();
         void print();
         
 

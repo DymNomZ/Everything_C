@@ -1,14 +1,14 @@
 #include <iostream>
-#include "list.h"
+#include "stack.h"
 
 using namespace std;
 
 int main(){
 
-    List* stack = new List();
+    Stack* stack = new Stack();
 
     int e, i;
-    Node temp;
+    Node* temp;
 
     while(e != 65){
         cout << "Enter operation: ";
@@ -26,7 +26,7 @@ int main(){
 
             case 3:
             temp = stack->pop();
-            cout << "Popped Node: " << temp.data << endl;
+            cout << "Popped Node: " << temp->data << endl;
             break;
 
             case 4:

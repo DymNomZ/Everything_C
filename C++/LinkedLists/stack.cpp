@@ -1,13 +1,13 @@
 #include <iostream>
-#include "list.h"
+#include "stack.h"
 
 using namespace std;
 
-List::List(){
+Stack::Stack(){
     head = NULL;
 }
 
-int List::peak(){
+int Stack::peak(){
     cout << "Peeking..." << endl;
     if(head == NULL){
         cout << "No values yet" << endl;
@@ -17,7 +17,7 @@ int List::peak(){
 
 }
 
-void List::push(int val){
+void Stack::push(int val){
     if(head == NULL){
         head = (Node*)calloc(1, sizeof(Node));
         curr = head;
@@ -32,19 +32,34 @@ void List::push(int val){
     
 }
 
-Node List::pop(){
+Node* Stack::pop(){
     Node* ptr = head;
-    Node pck;
-    while(ptr->next != curr){
+    Node* pck = (Node*)calloc(1, sizeof(Node));
+    if(head == NULL){
+        cout << "Stack is empty, returning -1..." << endl;
+        pck->data = -1;
+        return pck;
+    }
+    //Loops until next node is current and makes sure itself is not the last node
+    while(ptr->next != curr && ptr != curr){
         ptr = ptr->next;
     }
-    pck = *curr;
-    curr = ptr;
-    ptr->next = NULL;
-    return pck;
+    //if null meaning its the last node, makes head NULL after popping
+    if(ptr->next == NULL){
+        pck = ptr;
+        head = NULL;
+        return pck;
+    }//Makes the popped node NULL
+    else{
+        pck = ptr->next;
+        ptr->next = NULL;
+        curr = ptr;
+        return pck;
+    }
+
 }
 
-void List::print(){
+void Stack::print(){
     Node* ptr = head;
     if(head == NULL) cout << "No values yet" << endl;
     else {
