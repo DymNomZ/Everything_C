@@ -1,9 +1,4 @@
-
-class Node {
-    public:
-    int data;
-    Node* next;
-};
+#include "node.h"
 
 class Stack{
     Node* head;
