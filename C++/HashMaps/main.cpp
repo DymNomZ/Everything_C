@@ -20,7 +20,7 @@ int main()
         case 1:
             while (x != 0)
             {
-                cout << "1:add 2:remove 3:remove_idx 4:replace 5:retrieve 6:retrieve_idx 0:end" << endl;
+                cout << "1:add 2:remove 3:remove_idx 4:replace 5:retrieve 6:retrieve_idx 7: print 0:end" << endl;
                 cin >> x;
                 switch (x)
                 {
@@ -51,13 +51,13 @@ int main()
                 case 5:
                     cout << "Key: ";
                     cin >> key_int;
-                    hm->retrieve_int(key_int);
+                    cout << "Value of key " << key_int << ": " << hm->retrieve_int(key_int) << endl;
                     break;
 
                 case 6:
                     cout << "Idx: ";
                     cin >> i;
-                    hm->remove_by_idx_int(i);
+                    cout << "Value at idx " << i << ": " << hm->retrieve_by_idx_int(i) << endl;
                     break;
 
                 case 7:
@@ -73,7 +73,7 @@ int main()
         case 2:
             while (x != 0)
             {
-                cout << "1:add 2:remove 3:remove_idx 4:replace 5:retrieve 6:retrieve_idx 0:end" << endl;
+                cout << "1:add 2:remove 3:remove_idx 4:replace 5:retrieve 6:retrieve_idx 7:print 0:end" << endl;
                 cin >> x;
                 switch (x)
                 {
@@ -104,13 +104,13 @@ int main()
                 case 5:
                     cout << "Key: ";
                     cin >> key_str;
-                    hm->retrieve_str(key_str);
+                    cout << "Value of key " << key_str << ": " << hm->retrieve_str(key_str) << endl;
                     break;
 
                 case 6:
                     cout << "Idx: ";
                     cin >> i;
-                    hm->remove_by_idx_str(i);
+                    cout << "Value at idx " << i << ": " << hm->retrieve_by_idx_str(i) << endl;
                     break;
 
                 case 7:

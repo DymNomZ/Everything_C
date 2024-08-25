@@ -7,7 +7,7 @@ using namespace std;
 Hash_Map::Hash_Map(){
     arr_int = (int*)calloc(13, 4);
     arr_str = (string*)calloc(13, sizeof(string));
-
+    for(int i = 0; i < curr_size; i++) *(arr_str + i) = "0";
 }
 
 int* Hash_Map::resize_int_arr(int* arr, int* size){
@@ -113,15 +113,14 @@ void Hash_Map::print(int i){
         case 1:
         cout << "Printing int array..." << endl;
         for(int i = 0; i < curr_size; i++){
-            if(*(arr_int + i) != 0) cout << i << ": " << *(arr_int + i);
+            if(*(arr_int + i) != 0) cout << i << ": " << *(arr_int + i) << endl;
         }
-        cout << endl;
         break;
 
         case 2:
         cout << "Printing string array..." << endl;
         for(int i = 0; i < curr_size; i++){
-            if(*(arr_str + i) != "0") cout << i << ": " << *(arr_str + i);
+            if(*(arr_str + i) != "0") cout << i << ": " << *(arr_str + i) << endl;
         }
         cout << endl;
         break;
