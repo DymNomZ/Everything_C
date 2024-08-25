@@ -13,6 +13,7 @@ Hash_Map::Hash_Map(){
 int* Hash_Map::resize_int_arr(int* arr, int* size){
     int* temp = (int*)calloc(*size*2, 4);
     for(int i = 0; i < *size; i++) *(temp + i) = *(arr + i);
+    for(int i = *size; i < (*size*2); i++) *(temp + i) = 0;
     *size *= 2;
     f_size *= 2;
     return temp;
@@ -21,6 +22,7 @@ int* Hash_Map::resize_int_arr(int* arr, int* size){
 string* Hash_Map::resize_str_arr(string* arr, int* size){
     string* temp = (string*)calloc(*size*2, sizeof(string));
     for(int i = 0; i < *size; i++) *(temp + i) = *(arr + i);
+    for(int i = *size; i < (*size*2); i++) *(temp + i) = "0";
     *size *= 2;
     f_size *= 2;
     return temp;
@@ -55,12 +57,14 @@ void Hash_Map::arr_checker(int hash, string val){
 void Hash_Map::add(int key, int val){
     if((count / f_size) >= 0.75){
         resize_int_arr(arr_int, &curr_size);
+        arr_checker(hash_func(key), val);
     }else arr_checker(hash_func(key), val);
 }
 
 void Hash_Map::add(string key, string val){
     if((count / f_size) >= 0.75){
         resize_str_arr(arr_str, &curr_size);
+        arr_checker(hash_func(key), val);
     }else arr_checker(hash_func(key), val);
 }
 
