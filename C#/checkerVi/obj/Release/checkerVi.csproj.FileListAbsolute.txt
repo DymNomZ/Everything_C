@@ -1,0 +1,7 @@
+C:\Users\User\Desktop\C#\checkerVi\bin\Release\checkerVi.exe.config
+C:\Users\User\Desktop\C#\checkerVi\bin\Release\checkerVi.exe
+C:\Users\User\Desktop\C#\checkerVi\bin\Release\checkerVi.pdb
+C:\Users\User\Desktop\C#\checkerVi\obj\Release\checkerVi.csproj.AssemblyReference.cache
+C:\Users\User\Desktop\C#\checkerVi\obj\Release\checkerVi.csproj.CoreCompileInputs.cache
+C:\Users\User\Desktop\C#\checkerVi\obj\Release\checkerVi.exe
+C:\Users\User\Desktop\C#\checkerVi\obj\Release\checkerVi.pdb
