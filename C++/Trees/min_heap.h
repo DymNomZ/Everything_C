@@ -1,4 +1,4 @@
-struct MinHeap{
+class Min_Heap{
     int heap_size;
     int heap_cap;
     int* heap_e;
@@ -21,13 +21,18 @@ struct MinHeap{
     void heapify_up(int);
     void heapify_down(int);
 
+    void grow();
+    void shrink();
+
+    void sort();
+
     public:
-        MinHeap(int*, int);
+        Min_Heap(int*, int);
         int get_size();
         int get_cap();
-        void check_cap();
         void print_heap();
         void insert(int);
         int remove();
+        int peek();
         
 };

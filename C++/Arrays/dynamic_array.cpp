@@ -86,7 +86,7 @@ int* Dynamic_Array::resize(int* arr, int* curr_size){
     }
     *curr_size *= 2;
     cout << "Resizing complete!" << endl;
-    return temp;
+    return (int*)realloc(arr, *curr_size*4);
 }
 
 void Dynamic_Array::append_at_start(int e){

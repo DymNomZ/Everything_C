@@ -3,95 +3,110 @@
 
 using namespace std;
 
-MinHeap::MinHeap(int* arr, int size){
+Min_Heap::Min_Heap(int* arr, int size){
     heap_size = size;
     heap_cap = size;
     heap_e = arr;
+    sort();
 }
 
-int MinHeap::get_cap(){
+int Min_Heap::peek(){
+    return *(heap_e);
+}
+
+int Min_Heap::get_cap(){
     return heap_cap;
 }
 
-int MinHeap::get_size(){
+int Min_Heap::get_size(){
     return heap_size;
 }
 
-void MinHeap::print_heap(){
+void Min_Heap::print_heap(){
     cout << "Printing..." << endl;
     for(int i = 0; i < heap_size; i++) cout << *(heap_e + i) << " ";
     cout << endl;
 }
 
-void MinHeap::check_cap(){
-    if(heap_cap != heap_size) cout << "Capacity is good!" << endl;
-    else{
-        int* temp = (int*)calloc(heap_cap*2, 4);
-        for(int i = 0; i < heap_size; i++) *(temp + i) = *(heap_e + i);
-        heap_cap *= 2;
-        *heap_e = *temp;
-        cout << "New heap elements: " << endl;
-        print_heap();
+void Min_Heap::sort(){
+    for(int i = 0; i < heap_size-1; i++){
+        for(int j = 0; j < heap_size-1-i; j++){
+            if(get_element(j) > get_element(j+1)){
+                swap(j, j+1);
+            }
+        }
     }
 }
 
-void MinHeap::swap(int a, int b){
+void Min_Heap::grow(){
+    cout << "Growing..." << endl;
+    heap_cap *= 1.5;
+    heap_e = (int*)realloc(heap_e, heap_cap*4);
+}
+
+void Min_Heap::shrink(){
+    cout << endl << "Shrinking..." << endl;
+    heap_cap *= 0.5;
+    heap_e = (int*)realloc(heap_e, heap_cap*4);
+}
+
+void Min_Heap::swap(int a, int b){
     *(heap_e + a) = *(heap_e + a) ^ *(heap_e + b);
     *(heap_e + b) = *(heap_e + a) ^ *(heap_e + b);
     *(heap_e + a) = *(heap_e + a) ^ *(heap_e + b);
 }
 
-int MinHeap::get_parentIdx(int i){
+int Min_Heap::get_parentIdx(int i){
     return (i - 1) / 2;
 }
 
-int MinHeap::get_leftChildIdx(int i){
+int Min_Heap::get_leftChildIdx(int i){
     return 2*i + 1;
 }
 
-int MinHeap::get_rightChildIdx(int i){
+int Min_Heap::get_rightChildIdx(int i){
     return 2*i + 2;
 }
 
-bool MinHeap::has_parent(int i){
+bool Min_Heap::has_parent(int i){
     if(*(heap_e + get_parentIdx(i)) >= 0) return true;
     else return false;
 }
 
-bool MinHeap::has_left_child(int i){
+bool Min_Heap::has_left_child(int i){
     if(*(heap_e + get_leftChildIdx(i)) < heap_size) return true;
     else return false;
 }
 
-bool MinHeap::has_right_child(int i){
+bool Min_Heap::has_right_child(int i){
     if(*(heap_e + get_rightChildIdx(i)) < heap_size) return true;
     else return false;
 }
 
-int MinHeap::get_parent(int i){
+int Min_Heap::get_parent(int i){
     return *(heap_e + get_parentIdx(i));
 }
 
-int MinHeap::get_left_child(int i){
+int Min_Heap::get_left_child(int i){
     return *(heap_e + get_leftChildIdx(i));
 }
 
-int MinHeap::get_right_child(int i){
+int Min_Heap::get_right_child(int i){
     return *(heap_e + get_rightChildIdx(i));
 }
 
-int MinHeap::get_element(int i){
+int Min_Heap::get_element(int i){
     return *(heap_e + i);
 }
 
-void MinHeap::heapify_up(int i){
+void Min_Heap::heapify_up(int i){
     if(has_parent(i) && get_parent(i) > get_element(i)){
         swap(get_parentIdx(i), i);
         heapify_up(get_parentIdx(i));
     }
 }
 
-void MinHeap::heapify_down(int i){
+void Min_Heap::heapify_down(int i){
     if(has_left_child(i) && get_left_child(i) < get_element(i)){
         swap(get_leftChildIdx(i), i);
         heapify_down(get_leftChildIdx(i));
@@ -102,18 +117,24 @@ void MinHeap::heapify_down(int i){
     }
 }
 
-void MinHeap::insert(int e){
-    check_cap();
+void Min_Heap::insert(int e){
+    if(heap_size >= heap_cap) grow();
+    else cout << "Capacity is good!" << endl;
     *(heap_e + heap_size) = e;
     heap_size++;
-    heapify_up(heap_size);
+    cout << "New heap elements: " << endl;
+    print_heap();
+    heapify_up(heap_size-1);
 }
 
-int MinHeap::remove(){
+int Min_Heap::remove(){
+    int temp = *(heap_e);
     if(heap_size == 0) cout << "Heap is empty" << endl;
     else{
-        *(heap_e) = *(heap_e + heap_size);
+        *(heap_e) = *(heap_e + heap_size-1);
         heap_size--;
+        if(heap_size <= heap_cap * 0.5) shrink();
         heapify_down(0);
     }
+    return temp;
 }
