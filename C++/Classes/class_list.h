@@ -36,6 +36,7 @@ class Class_List{
                     students[j] = students[j+1];
                 }
                 size--;
+                break;
             }   
         }
         if(size <= capacity / 2){

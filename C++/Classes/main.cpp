@@ -8,6 +8,7 @@ int main(){
     Student* test;
     Class_List* cl = new Class_List();
     string n;
+    int x;
     char c;
     while(c != 'x'){
         cout << "Enter operation: ";
