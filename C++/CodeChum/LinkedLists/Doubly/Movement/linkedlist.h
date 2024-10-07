@@ -37,101 +37,77 @@ class LinkedList {
 	// TODO advance
 	void advance(string name, int forward) {
 	    node* curr = head->next;
-	    int idx = 1;
 	    while(!(curr->person->lastName == name || curr->person->firstName == name)){
 	        curr = curr->next;
-	        idx++;
-	    }
-	    //cout << idx << endl;
-	    int num = idx - 1;
-	    
-	    if(forward >= num){
-	        curr->prev->next = curr->next;
-	        curr->next->prev = curr->prev;
-	        curr->prev = head;
-	        curr->next = head->next;
-	        head->next->prev = curr;
-	        head->next = curr;
-	        return;
-	    }else{
-	        node* f = head->next;
-    	    while(forward != 0 && f != tail){
-    	        f = f->next;
-    	        forward--;
-    	    }
-    	    
-    	    node* c_next = curr->next;
-    	    node* c_prev = curr->prev;
-    	    
-    	    c_prev->next = curr->next;
-    	    c_next->prev = curr->prev;
-    	    
-    	    curr->next = f;
-    	    curr->prev = f->prev;
-    	    curr->prev->next = curr;
-    	    f->prev = curr;
-    	    
-    	    return;
-    	    
 	    }
 	    
-    
+	    while(forward != 0 && curr->prev != head){
+	        swap(curr, curr->prev);
+	        forward--;
+	    }
 	}
 
 
 	// TODO delay
 	void delay(string name, int back) {
 	    node* curr = head->next;
-	    int idx = 1;
 	    while(!(curr->person->lastName == name || curr->person->firstName == name)){
 	        curr = curr->next;
-	        idx++;
 	    }
-	    int num = size - idx;
-	    if(back > num){
-	        curr->prev->next = curr->next;
-	        curr->next->prev = curr->prev;
-	        curr->next = tail;
-	        curr->prev = tail->prev;
-	        tail->prev->next = curr;
-	        tail->prev = curr;
-	        return;
-	    }
-	    else if(idx != size){
-	        node* b = curr;
-    	    while(back != 0 && b != tail){
-    	        b = b->next;
-    	        back--;
-    	    }
-    	    
-    	    curr->next = b->next;
-    	    b->prev = curr->prev;
-    	    b->next = curr;
-    	    curr->prev = b;
-    	    b->prev->next = b;
-    	    curr->next->prev = curr;
-    	    return;
+	    
+	    node* toswap = curr;
+	    
+	    while(back != 0 && curr->next != tail){
+	        toswap = toswap->next;
+	        swap(curr, toswap);
+	        back--;
 	    }
 	    
     
 	}
 	
-	void swap(node* ns, node* nu){
-	    node* ns_next = ns->next;
-	    node* ns_prev = ns->prev;
-	    node* nu_next = nu->next;
-	    node* nu_prev = nu->prev;
+	void swap(node* curr, node* source){
+	    if(curr->next == source){
+	        curr->next = source->next;
+	        source->prev = curr->prev;
+	        source->next = curr;
+	        curr->prev = source;
+	        
+	        source->next->prev = source;
+	        source->prev->next = source;
+	        
+	        curr->next->prev = curr;
+	        curr->prev->next = curr;
+	        return;
+	    }else if(curr->prev == source){
+	        source->next = curr->next;
+	        curr->prev = source->prev;
+	        curr->next = source;
+	        source->prev = curr;
 	    
-	    //swapping
-	    nu->prev = ns_prev;
-	    nu->next = ns_next;
-	    ns_next->prev = nu;
-	    ns_prev->next = nu;
+	        source->next->prev = source;
+	        source->prev->next = source;
+	        
+	        curr->next->prev = curr;
+	        curr->prev->next = curr;
+	        return;
+	    }
 	    
-	    ns->prev = nu_prev;
-	    ns->next = nu_next;
-	    nu_next->prev = ns;
-	    nu_prev->next = ns;
+	    node* curr_n = curr->next;
+	    node* curr_p = curr->prev;
+	    node* source_n = source->next;
+	    node* source_p = source->prev;
+	    
+	    curr_p->next = source;
+	    curr_n->prev = source;
+	    source->next = curr_n;
+	    source->prev = curr_p;
+	    
+	    source_p->next = curr;
+	    source_n->prev = curr;
+	    curr->next = source_n;
+	    curr->prev = source_p;
+	    
 	}
 
 
