@@ -81,6 +81,11 @@ int main(){
             mu->rotate(p, shift);
             break;
 
+            case 'i':
+            cin >> x;
+            mu->insert(x);
+            break;
+
             case 'm':
             if(mu == dl){
                 cout << "Switching to d2..." << endl;

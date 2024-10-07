@@ -117,11 +117,11 @@ class doublylist {
             return;
         }
         if(head->next->val == num){
-            remove_head();
+            remove_between(head->next);
             return;
         }
         if(tail->prev->val == num && !is_sorting){
-            remove_tail();
+            remove_between(tail->prev);
             return;
         }
         node* curr = head->next->next;
@@ -209,6 +209,31 @@ class doublylist {
             comp = curr = head->next;
         }
         is_sorting = false;
+    }
+
+    void insert(int num){
+        sort();
+        int idx = 1;
+        node* curr = head->next;
+        node* stop = head->next;
+        while(curr != tail){
+            if(curr->val > num){
+                stop = curr;
+                break;
+            }
+            curr = curr->next;
+            idx++;
+        }
+        int half = size / 2;
+        if(idx <= half){
+            curr = head->next;
+            while(curr != stop) curr = curr->next;
+            add_between(num, curr);
+        }else if(idx > half){
+            curr = tail->prev;
+            while(curr != stop) curr = curr->prev;
+            add_between(num, curr);
+        }
     }
 
     void rotate(int places, char direction){
