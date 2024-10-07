@@ -10,8 +10,8 @@ class list {
 
     public:
     list(){
-        //head = (node*)calloc(1, sizeof(node));
-        //tail = (node*)calloc(1, sizeof(node));
+        head = NULL;
+        tail = NULL;
     }
 
     void remove_head(){
@@ -106,20 +106,18 @@ class list {
     }
 
     void reverse(){
-        node* curr = head;
+        node* curr = head->next;
         node* prev = head;
-        node* next = head->next;
-        curr = head->next;
-        // 1 2 3 4 5
-        while(curr){
-            next = curr->next;
-            curr->next = prev;
-            prev = curr;
-            curr = next;
-        }
         tail = head;
-        head = prev;
-        tail->next = NULL;
+
+        while(curr){
+            head = curr;
+            curr = curr->next;
+            head->next = prev;
+            prev = head;
+        }
+
+        tail->next = 0;
     }
 
     void add_head(int num){
