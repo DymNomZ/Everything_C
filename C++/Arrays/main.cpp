@@ -5,12 +5,17 @@ using namespace std;
 
 int main(){
     Dynamic_Array* d_arr = new Dynamic_Array(5);
-    int e, x, i;
+    int e, x, i, res;
     //e = 65
     while(e != 65){
         cout << "Enter option: ";
         cin >> e;
         switch(e){
+            case 0:
+            res = d_arr->remove_all();
+            cout << "Removed " << res << " items" << endl;
+            break;
+
             case 1:
             cout << "Size is: " << d_arr->get_size() << endl;
             break;

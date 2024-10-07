@@ -1,5 +1,6 @@
 #include <iostream>
 #include "dynamic_array.h"
+#include <math.h>
 
 using namespace std;
 
@@ -33,16 +34,20 @@ int Dynamic_Array::find_element(int e){
 }
 
 void Dynamic_Array::remove(int e){
+    bool found = false;
     for(int i = 0; i < count_size; i++){
         if(e == *(arr + i)){
+            found = true;
             for(int j = i; j < count_size-1; j++){
                 *(arr + j) = *(arr + j+1);
             }
-            *(arr + count_size) = 0;
+            *(arr + count_size-1) = 0;
             if(count_size > 0) count_size--;
+            if(count_size < (curr_size / 2)) reduce();
             cout << "Removed element" << endl;
         }
     }
+    if(!found) cout << "Element not found" << endl;
 }
 
 void Dynamic_Array::remove_at(int idx){
@@ -53,14 +58,29 @@ void Dynamic_Array::remove_at(int idx){
         }
         *(arr + count_size) = 0;
         if(count_size > 0) count_size--;
+        if(count_size < (curr_size / 2)) reduce();
         cout << "Removed element at idx " << idx << endl;
     }
 
 }
 
+int Dynamic_Array::remove_all(){
+    if(curr_size == 0){
+        cout << "Array is empty" << endl;
+        return 0;
+    }else{
+        int last_size = count_size;
+        free(arr);
+        arr = (int*)calloc(init_size, 4);
+        curr_size = init_size;
+        count_size = 0;
+        return last_size;
+    }
+}
+
 void Dynamic_Array::insert(int e, int idx){
     if(count_size + 1 >= curr_size){
-        arr = resize(arr, &curr_size);
+        resize();
     }
     if(count_size == 0) {
         cout << "First ever element, inserted at beginning" << endl;
@@ -78,20 +98,29 @@ void Dynamic_Array::insert(int e, int idx){
 
 }
 
-int* Dynamic_Array::resize(int* arr, int* curr_size){
+void Dynamic_Array::resize(){
     cout << "Resizing...." << endl;
-    int *temp = (int*)calloc(*curr_size*2, 4);
-    for(int i = 0; i < *curr_size; i++){
-        *(temp + i) = *(arr + i);
-    }
-    *curr_size *= 2;
+
+    curr_size *= 2;
+    arr = (int*)realloc(arr, curr_size*4);
+
     cout << "Resizing complete!" << endl;
-    return (int*)realloc(arr, *curr_size*4);
+}
+
+void Dynamic_Array::reduce(){
+    cout << "Shrinking..." << endl;
+
+    curr_size = ceil(curr_size * 0.5);
+    if(curr_size <= 5) curr_size = 5;
+
+    arr = (int*)realloc(arr, curr_size*4);
+    
+    cout << "Shrinking complete!" << endl;
 }
 
 void Dynamic_Array::append_at_start(int e){
     if(count_size + 1 >= curr_size){
-        arr = resize(arr, &curr_size);
+        resize();
     }
     for(int j = count_size; j > 0; j--){
         *(arr + j) = *(arr + j-1);
@@ -103,7 +132,7 @@ void Dynamic_Array::append_at_start(int e){
 
 void Dynamic_Array::append_at_end(int e){
     if(count_size + 1 >= curr_size){
-        arr = resize(arr, &curr_size);
+        resize();
     }
     *(arr + count_size) = e;
     count_size++;   
@@ -126,6 +155,10 @@ void Dynamic_Array::remove_at_end(){
 }
 
 void Dynamic_Array::print(){
+    if(curr_size == 0){
+        cout << "Array is empty" << endl;
+        return;
+    }
     for(int i = 0; i < curr_size; i++){
         cout << *(arr + i) << " " ;
     }

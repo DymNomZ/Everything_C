@@ -6,7 +6,8 @@ class Dynamic_Array{
     int init_size;
     int curr_size;
     int count_size;
-    int* resize(int*, int*);
+    void resize();
+    void reduce();
 
     public:
         Dynamic_Array(int);
@@ -15,6 +16,7 @@ class Dynamic_Array{
         int find_element(int);
         void remove(int);
         void remove_at(int);
+        int remove_all();
         void insert(int, int);
         void append_at_start(int);
         void append_at_end(int);
@@ -22,6 +24,5 @@ class Dynamic_Array{
         void remove_at_end();
         void print();
         int get_num_elements();
-
 
 };
