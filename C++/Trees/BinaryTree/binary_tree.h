@@ -94,10 +94,18 @@ class BinaryTree {
             if(parent(nod)){
                 if(left(nod)){
                     nod->left->parent = nod->parent;
-                    nod->parent->left = nod->left;
+                    if(left(parent(nod)) == nod){
+                        nod->parent->left = nod->left;
+                    }else{
+                        nod->parent->right = nod->left;
+                    }
                 }else{
                     nod->right->parent = nod->parent;
-                    nod->parent->right = nod->right;
+                    if(left(parent(nod)) == nod){
+                        nod->parent->left = nod->right;
+                    }else{
+                        nod->parent->right = nod->right;
+                    }
                 }
             }
             //no parent means the node is a root, therefore assign new root
