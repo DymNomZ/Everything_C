@@ -27,7 +27,7 @@ int main(){
     BinaryTree* t = new BinaryTree();
     int input, select;
     char op;
-    vector<node*> nodes;
+    vector<node*> nodes, candidates;
 
     while(op != 'x'){
         cout << "Enter operation: ";
@@ -214,6 +214,57 @@ int main(){
                         if(res){
                             cout << "Parent of " << selected->elem << " is: " << t->parent(selected)->elem << endl;
                         }else cout << "Nod is root, no parent!" << endl;
+                    }
+                }
+            break;
+
+            case 'P':
+                if(nodes.size() < 2){
+                    cout << "No path can be made, nned at least two elements!" << endl;
+                }else{
+                    //clear previous list, smh
+                    candidates.clear();
+                    
+                    cout << "Construct potential path, enter invalid index to end selection and validate your path" << endl;
+                    do{
+                        selectNode(&select, nodes);
+                        if(select >= nodes.size() || select < 0) break;
+                        else candidates.push_back(nodes.at(select));
+
+                    }while(select < nodes.size() && select >= 0);
+
+                    cout << "Now validating..." << endl;
+
+                    if(t->checkIfPath(candidates)) cout << "It is a valid path!";
+                    else cout << "It is not a valid path";
+                    cout << endl;
+                }
+
+            break;
+
+            case 'e':
+                if(nodes.size() < 2){
+                    cout << "No edging, must have at least two elements!" << endl;
+                }else{
+                    cout << "Select edgers" << endl;
+                    selectNode(&select, nodes);
+                    if(select >= nodes.size()){
+                        cout << "Invalid choice" << endl;
+                    }else{
+                        node* u = nodes.at(select);
+
+                        selectNode(&select, nodes);
+                        if(select >= nodes.size()){
+                            cout << "Invalid choice" << endl;
+                        }else{
+
+                            node* v = nodes.at(select);
+
+                            if(!t->checkIfEdge(u, v)) cout << u->elem << " and " << v->elem << " are not edging";
+                            else cout << u->elem << " and " << v->elem << " are edging!";
+                            cout << endl;
+                        }
+                    
                     }
                 }
             break;

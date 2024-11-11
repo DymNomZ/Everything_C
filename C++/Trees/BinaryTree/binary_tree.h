@@ -100,6 +100,17 @@ class BinaryTree {
         return checkIfAncestor(u, v);
     }
 
+    bool checkIfEdge(node* u, node* v){
+        return u == v->parent;
+    }
+
+    bool checkIfPath(vector<node*> candidates){
+        for(int i = 0; i < candidates.size() - 1; i++){
+            if(!checkIfEdge(candidates[i], candidates[i+1])) return false;
+        }
+        return true;
+    }
+
     int remove(node* nod){
         if(left(nod) && right(nod)) throw logic_error("Cannot remove nod for it has 2 children");
         //has either one child
