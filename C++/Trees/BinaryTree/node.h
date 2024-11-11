@@ -19,4 +19,25 @@ struct node {
         if(!parent) return 0;
         else return 1 + parent->depth();
     }
+
+    void ancestors(){
+        if(!parent) cout << "No more ancestors!" << endl;
+        else {
+            cout << parent->elem << " ";
+            parent->ancestors();
+        }
+    }
+
+    void descendants(){
+        if(left){
+            cout << left->elem << " ";
+            left->descendants();
+        }
+
+        if(right){
+            cout << right->elem << " ";
+            right->descendants();
+        }
+
+    }
 };

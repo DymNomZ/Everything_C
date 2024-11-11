@@ -236,6 +236,91 @@ int main(){
                     }
                 }
             break;
+
+            case 'J':
+            if(nodes.size() == 0){
+                cout << "Can't print, tree is empty!" << endl;
+            }else{
+                selectNode(&select, nodes);
+                if(select >= nodes.size()){
+                    cout << "Invalid choice" << endl;
+                }else{
+                    nodes.at(select)->ancestors();
+                }
+            }
+            break;
+
+            case 'K':
+            if(nodes.size() == 0){
+                cout << "Can't print, tree is empty!" << endl;
+            }else{
+                selectNode(&select, nodes);
+                if(select >= nodes.size()){
+                    cout << "Invalid choice" << endl;
+                }else{
+                    nodes.at(select)->descendants();
+                    cout << endl;
+                }
+            }
+            break;
+
+            case 'D':
+            if(nodes.size() == 0){
+                cout << "Can't check, tree is empty!" << endl;
+            }else{
+                cout << "Select potential descendant" << endl;
+                selectNode(&select, nodes);
+                if(select >= nodes.size()){
+                    cout << "Invalid choice" << endl;
+                }else{
+                    node* v = nodes.at(select);
+
+                    cout << "Select ancestor" << endl;
+                    selectNode(&select, nodes);
+
+                    if(select >= nodes.size()){
+                        cout << "Invalid choice" << endl;
+                    }else{
+
+                        node* u = nodes.at(select);
+
+                        if(t->checkIfDesecendant(v, u)) cout << v->elem << " is a descendant of " << u->elem;
+                        else cout << v->elem << " is not a descendant of " << u->elem;
+                        cout << endl;
+                    }
+                    
+                }
+            }
+            break;
+
+            case 'A':
+            if(nodes.size() == 0){
+                cout << "Can't check, tree is empty!" << endl;
+            }else{
+                cout << "Select potential ancestor" << endl;
+                selectNode(&select, nodes);
+                if(select >= nodes.size()){
+                    cout << "Invalid choice" << endl;
+                }else{
+                    node* u = nodes.at(select);
+
+                    cout << "Select base node" << endl;
+                    selectNode(&select, nodes);
+
+                    if(select >= nodes.size()){
+                        cout << "Invalid choice" << endl;
+                    }else{
+
+                        node* v = nodes.at(select);
+
+                        if(t->checkIfAncestor(u, v)) cout << u->elem << " is an ancestor of " << v->elem;
+                        else cout << u->elem << " is not an ancestor of " << v->elem;
+                        cout << endl;
+                    }
+                    
+                }
+            }
+            break;
         }
     }
 

@@ -86,6 +86,20 @@ class BinaryTree {
         return nod->parent;
     }
 
+    bool checkIfAncestor(node* u, node* v){
+        
+        //reached above root
+        if(!v) return false;
+
+        //u == v
+        if(u == v) return true;
+        else return checkIfAncestor(u, v->parent);
+    }
+
+    bool checkIfDesecendant(node* v, node* u){
+        return checkIfAncestor(u, v);
+    }
+
     int remove(node* nod){
         if(left(nod) && right(nod)) throw logic_error("Cannot remove nod for it has 2 children");
         //has either one child
