@@ -3,7 +3,8 @@
     "iostream": "cpp",
     "ostream": "cpp",
     "typeinfo": "cpp",
-    "stdexcept": "cpp"
+    "stdexcept": "cpp",
+    "algorithm": "cpp"
   },
   "C_Cpp_Runner.cCompilerPath": "gcc",
   "C_Cpp_Runner.cppCompilerPath": "g++",

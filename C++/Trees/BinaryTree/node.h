@@ -21,8 +21,7 @@ struct node {
     }
 
     void ancestors(){
-        if(!parent) cout << "No more ancestors!" << endl;
-        else {
+        if(parent) {
             cout << parent->elem << " ";
             parent->ancestors();
         }

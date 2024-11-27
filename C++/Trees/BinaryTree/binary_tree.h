@@ -111,6 +111,36 @@ class BinaryTree {
         return true;
     }
 
+    void collectPaths(node *node, vector<int> &candidate_path, vector<vector<int>> &paths) {
+    if (node == NULL) return;
+
+    //By default push to candidate_path vector
+    candidate_path.push_back(node->elem);
+
+    // If it's a leaf node, store the path
+    if (node->left == NULL && node->right == NULL) {
+        paths.push_back(candidate_path);
+    }
+    else {
+        // if not, try both subtrees
+        collectPaths(node->left, candidate_path, paths);
+        collectPaths(node->right, candidate_path, paths);
+    }
+
+    //remove last element
+    candidate_path.pop_back();
+}
+
+    vector<vector<int>> allPaths(node *root) {
+        //Note that this is only root-to-leaf
+        vector<vector<int>> paths;
+        vector<int> candidate_path;
+
+        collectPaths(root, candidate_path, paths);
+        
+        return paths;
+    }
+
     int remove(node* nod){
         if(left(nod) && right(nod)) throw logic_error("Cannot remove nod for it has 2 children");
         //has either one child

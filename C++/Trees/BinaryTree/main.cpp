@@ -292,11 +292,13 @@ int main(){
             if(nodes.size() == 0){
                 cout << "Can't print, tree is empty!" << endl;
             }else{
+                cout << "Prints ancestors of a node" << endl;
                 selectNode(&select, nodes);
                 if(select >= nodes.size()){
                     cout << "Invalid choice" << endl;
                 }else{
                     nodes.at(select)->ancestors();
+                    cout << endl;
                 }
             }
             break;
@@ -305,6 +307,7 @@ int main(){
             if(nodes.size() == 0){
                 cout << "Can't print, tree is empty!" << endl;
             }else{
+                cout << "Prints descendants of a node" << endl;
                 selectNode(&select, nodes);
                 if(select >= nodes.size()){
                     cout << "Invalid choice" << endl;
@@ -369,6 +372,27 @@ int main(){
                         cout << endl;
                     }
                     
+                }
+            }
+            break;
+
+            case 'c':
+            if(nodes.size() == 0){
+                cout << "Can't check, tree is empty!" << endl;
+            }else{
+                node* n = nodes.at(0);
+                cout << "Collecting root-to-leaf paths..." << endl;
+
+                vector<vector<int>> paths = t->allPaths(n);
+
+                cout << "Paths collected! Printing..." << endl;
+                
+                for(int i = 0; i < paths.size(); i++){
+                    vector<int> path = paths.at(i);
+                    for(int j = 0; j < path.size(); j++){
+                        cout << path.at(j) << " ";
+                    }
+                    cout << endl;
                 }
             }
             break;
