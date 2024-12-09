@@ -43,6 +43,12 @@ int main(void) {
                 if(res == -1) cout << "No successor" << endl;
                 else cout << "Successor is: " << res << endl;
                 break;
+			case 'h':
+				bst->toMinHeap();
+				break;
+			case 'H':
+				bst->toMaxHeap();
+				break;
 			default:
 				cout << "Invalid operation" << endl;
 		}

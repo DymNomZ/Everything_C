@@ -2,8 +2,56 @@
 
 class BST {
 	BinaryTree* tree = new BinaryTree();
+    int* arr;
+    int curr = 0;
 
 	public:
+    //convert functions are one time use only as per their design, so after using, restart the program to perform further operations
+    void toMinHeap() {
+	    int size = tree->_size();
+	    arr = (int*)calloc(size, 4);
+	    
+	    inorder(tree->getRoot());
+	    curr = 0;
+	    preorder(tree->getRoot());
+	}
+
+    void toMaxHeap() {
+	    int size = tree->_size();
+	    arr = (int*)calloc(size, 4);
+	    
+	    inorder(tree->getRoot());
+	    curr = 0;
+	    postorder(tree->getRoot());
+	}
+	
+	void inorder(node* n){
+	    if(tree->left(n)) inorder(tree->left(n));
+	    arr[curr] = n->elem;
+	    curr++;
+	    if(tree->right(n)) inorder(tree->right(n));
+	}
+
+	void preorder(node* n){
+	    n->elem = arr[curr];
+	    curr++;
+	    if(tree->left(n)) preorder(tree->left(n));
+	    if(tree->right(n)) preorder(tree->right(n));
+	}
+
+    void postorder(node* n){
+	    if(tree->left(n)) postorder(tree->left(n));
+	    if(tree->right(n)) postorder(tree->right(n));
+        n->elem = arr[curr];
+	    curr++;
+	}
+	
+	void swap(int a, int b){
+	    arr[a] = arr[a] ^ arr[b];
+	    arr[b] = arr[a] ^ arr[b];
+	    arr[a] = arr[a] ^ arr[b];
+	}
+
 	bool search(int num) {
 	    node* n = tree->getRoot();
         
