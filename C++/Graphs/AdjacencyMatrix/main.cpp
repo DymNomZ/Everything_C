@@ -112,6 +112,12 @@ int main(void) {
                 cin >> v;
                 cout << graph->removeVertex(v) << endl;
                 break;
+            case 'd':
+                graph->DFS();
+                break;
+            case 'b':
+                graph->BFS();
+                break;
             case 'p':
                 graph->print();
                 break;

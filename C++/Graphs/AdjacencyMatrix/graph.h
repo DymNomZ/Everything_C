@@ -16,4 +16,6 @@ class Graph {
     virtual int removeVertex(char v) = 0;
     virtual bool removeEdge(int e) = 0;
     virtual void print() = 0;
+    virtual void DFS() = 0;
+    virtual void BFS() = 0;
 };

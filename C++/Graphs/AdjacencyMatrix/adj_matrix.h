@@ -1,6 +1,7 @@
 #include <cstdlib>
 #include <iostream>
 #include <string.h>
+#include <queue>
 #include "graph.h"
 using namespace std;
 
@@ -10,6 +11,7 @@ class GraphMatrix : public Graph {
     int num_vert;
     int s_edges[100];
     int num_edge;
+    bool visited[10] = {false};
 
     public:
     GraphMatrix() {
@@ -229,6 +231,72 @@ class GraphMatrix : public Graph {
             return true;
         }
         else return false;
+    }
+
+    void resetVisited(){
+        for(int i = 0; i < 10; i ++) visited[i] = false;
+    }
+
+    void dfs(int i){
+        //assign true cause its now visited
+        visited[i] = true;
+
+        //get vertex and print
+        cout << s_vertices[i] << " ";
+
+        //check respective row
+        for(int j = 0; j < num_vert; j++){
+            if(matrix[i][j] != 0 && (!visited[j])){
+                dfs(j);
+            }
+        }
+    }
+
+    void DFS(){
+        //reset visited array
+        resetVisited();
+
+        //start with first vertex
+        for(int i = 0; i < num_vert; i++){
+            if(!visited[i]){
+                dfs(i); // nice naming LOL
+            }
+        }
+
+        cout << endl;
+    }
+
+    void BFS(){
+        //reset visited array
+        resetVisited();
+
+        //we push their indexes
+        queue<int> q;
+
+        //start with first vertex
+        q.push(0);
+        //assign true cause its now visited
+        visited[0] = true;
+
+        while(!q.empty()){
+
+            int i = q.front();
+            //get vertex and print
+            cout << s_vertices[i] << " ";
+
+            q.pop();
+
+            //check respective row
+            for(int j = 0; j < num_vert; j++){
+                if(matrix[i][j] != 0 && (!visited[j])){
+                    visited[j] = true;
+                    q.push(j);
+                }
+            }
+
+        }
+
+        cout << endl;
     }
     
     void print() {
