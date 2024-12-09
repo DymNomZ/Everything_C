@@ -1,0 +1,251 @@
+#include <cstdlib>
+#include <iostream>
+#include <string.h>
+#include "graph.h"
+using namespace std;
+
+class GraphMatrix : public Graph {
+    int matrix[10][10];
+    char s_vertices[10];
+    int num_vert;
+    int s_edges[100];
+    int num_edge;
+
+    public:
+    GraphMatrix() {
+        num_vert = 0;
+        num_edge = 0;
+        memset(matrix, 0, sizeof(matrix));
+    }
+
+    int numVertices() {
+        return num_vert;
+    }
+
+    char* vertices() {
+        return s_vertices;
+    }
+
+    int numEdges() {
+        return num_edge;
+    }
+
+    int* edges() {
+        return s_edges;
+    }
+
+    int getEdge(char u, char v)  {
+        int ui = getIdx(u);
+        int vi = getIdx(v);
+        
+        if(matrix[ui][vi]){
+            return matrix[ui][vi];
+        }
+        else{
+            return 0;
+        }
+    }
+    
+    bool findEdge(int e){
+        for(int i = 0; i < num_edge; i++){
+            if(e == s_edges[i]) return true;
+        }
+        return false;
+    }
+
+    char* endVertices(int e)  {
+        
+        char ev[2] = {'-', '-'};
+        
+        if(findEdge(e)){
+           for(int i = 0; i < num_vert; i++){
+                for(int j = 0; j < num_vert; j++){
+                    if(matrix[i][j] == e){
+                        ev[0] = s_vertices[i];
+                        ev[1] = s_vertices[j];
+                    }
+                }
+            }
+        }
+        return ev;
+    }
+
+    char opposite(char v, int e)  {
+    
+        char* ev = endVertices(e);
+        
+        if(ev[0] == v) return ev[1];
+        else if(ev[1] == v) return ev[0];
+        else return '-';
+    }
+    
+    int getV(char v){
+        for(int i = 0; i < num_vert; i++){
+            if(s_vertices[i] == v) return i;
+        }
+        return -1;
+    }
+
+    int outDegree(char v)  {
+        
+        int vi = getV(v);
+        if(vi == -1) return 0;
+        
+        int sum = 0;
+        for(int i = 0; i < num_vert; i++){
+            if(matrix[vi][i] != 0) sum++;
+        }
+        return sum;
+    }
+
+    int inDegree(char v)  {
+        int vi = getV(v);
+        if(vi == -1) return 0;
+        
+        int sum = 0;
+        for(int i = 0; i < num_vert; i++){
+            if(matrix[i][vi] != 0) sum++;
+        }
+        return sum;
+    }
+
+    int* outgoingEdges(char v) {
+        
+        int vi = getV(v);
+        if(vi == -1) return NULL;
+        
+        int curr = 0;
+        int* es = (int*)calloc(0, outDegree(v) * 4); 
+        
+        for(int i = 0; i < num_vert; i++){
+            if(matrix[vi][i] != 0){
+                es[curr++] = matrix[vi][i];
+            }
+        }
+        return es;
+    }
+
+    int* incomingEdges(char v) {
+        
+        int vi = getV(v);
+        if(vi == -1) return NULL;
+        
+        int curr = 0;
+        int* es = (int*)calloc(0, outDegree(v) * 4); 
+        
+        for(int i = 0; i < num_vert; i++){
+            if(matrix[i][vi] != 0){
+                es[curr++] = matrix[i][vi];
+            }
+        }
+        return es;
+    }
+
+    bool insertVertex(char x)  {
+        if(num_vert >= 10) return false;
+        else{
+            s_vertices[num_vert++] = x;
+            return false;
+        }
+    }
+    
+    int getIdx(char x){
+        for(int i = 0; i < num_vert; i++){
+            if(s_vertices[i] == x) return i;
+        }
+        return -1;
+    }
+
+    bool insertEdge(char u, char v, int x)  {
+        //get idx of u and v from s_vertices
+        int ui = getIdx(u);
+        int vi = getIdx(v);
+        
+        //if either idx does not exist
+        if(ui == -1 || vi == -1) return false;
+        
+        //update matrix at the idx to store x
+        if(matrix[ui][vi] == 0){
+            matrix[ui][vi] = x;
+            
+            //add x in s_edges
+            s_edges[num_edge] = x;
+            
+            //update num_edge
+            num_edge++;
+            return true;
+        }
+        else{
+            cout << "Not Null" << endl;
+            return false;
+        }
+        
+    }
+
+    int removeVertex(char v) {
+    
+        int d = getIdx(v);
+        if(d == -1) return 0;
+        
+        int sum = 0;
+        sum += inDegree(v);
+        sum += outDegree(v);
+        num_edge -= sum;
+        
+        for(int i = d; i < num_vert-1; i++){
+            s_vertices[i] = s_vertices[i+1];
+        }
+        
+        int i;
+        
+        while(d < num_vert){
+            
+            for(i = 0; i < num_vert; ++i){
+                matrix[i][d] = matrix[i][d + 1];
+            }
+            
+            for(i = 0; i < num_vert; ++i){
+                matrix[d][i] = matrix[d + 1][i];
+            }
+            d++;
+        }
+        
+        num_vert--;
+        return sum;
+    }
+
+    bool removeEdge(int e)  {
+    
+        if(findEdge(e)){
+            
+            for(int i = 0; i < num_vert; i++){
+                for(int j = 0; j < num_vert; j++){
+                    if(matrix[i][j] == e){
+                        matrix[i][j] = 0;
+                    }
+                }
+            }
+            num_edge--;
+            return true;
+        }
+        else return false;
+    }
+    
+    void print() {
+        cout << "\t";
+        for (int i = 0; i < num_vert; i++) {
+            cout << s_vertices[i] << "\t";
+        }
+        cout << endl;
+        for (int i = 0; i < num_vert; i++) {
+            cout << s_vertices[i] << "\t";
+            for (int j = 0; j < num_vert; j++) {
+                if (matrix[i][j] != 0) {
+                    cout << matrix[i][j];
+                }
+                cout << "\t";
+            }
+            cout << endl;
+        }
+    }
+};
