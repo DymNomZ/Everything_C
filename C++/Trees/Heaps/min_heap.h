@@ -1,3 +1,5 @@
+
+using namespace std;
 class Min_Heap{
     int heap_size;
     int heap_cap;
@@ -25,6 +27,7 @@ class Min_Heap{
     void shrink();
 
     void sort();
+    void print_tree(string, int, bool);
 
     public:
         Min_Heap(int*, int);

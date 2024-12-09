@@ -1,4 +1,6 @@
 #include <iostream>
+#include <cstdlib>
+#include <cmath>
 #include "max_heap.h"
 
 using namespace std;
@@ -51,13 +53,41 @@ void Max_Heap::print(){
     }
 }
 
+int Max_Heap::get_parentIdx(int i){
+    return (i - 1) / 2;
+}
+
+int Max_Heap::get_leftChildIdx(int i){
+    return 2*i + 1;
+}
+
+int Max_Heap::get_rightChildIdx(int i){
+    return 2*i + 2;
+}
+
+int Max_Heap::get_parent(int i){
+    return *(heap_e + get_parentIdx(i));
+}
+
+int Max_Heap::get_left_child(int i){
+    return *(heap_e + get_leftChildIdx(i));
+}
+
+int Max_Heap::get_right_child(int i){
+    return *(heap_e + get_rightChildIdx(i));
+}
+
+int Max_Heap::get_element(int i){
+    return *(heap_e + i);
+}
+
 void Max_Heap::heapify(int i){
     int x = i;
     int left_idx = 2*i+1;
     int right_idx = 2*i+2;
     
-    if(left_idx < size && *(heap_e + left_idx) > *(heap_e + x)) x = left_idx;
-    if(right_idx < size && *(heap_e + right_idx) > *(heap_e + x)) x = right_idx;
+    if(left_idx < size && get_left_child(i) > get_element(i)) x = left_idx;
+    if(right_idx < size && get_right_child(i) > get_element(i)) x = right_idx;
     if(x != i){
         swap(x, i);
         heapify(x);
@@ -74,6 +104,7 @@ void Max_Heap::insert(int n){
         if(size >= cap) grow();
         *(heap_e + size) = n;
         //haven't understood this algorithm yet
+        //Now I do - Dymes, December 9, 2024
         size++;
         for(int i = size / 2 - 1; i >= 0; i--) heapify(i);
     }

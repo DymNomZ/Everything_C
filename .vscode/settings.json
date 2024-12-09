@@ -4,7 +4,11 @@
     "ostream": "cpp",
     "typeinfo": "cpp",
     "stdexcept": "cpp",
-    "algorithm": "cpp"
+    "algorithm": "cpp",
+    "array": "cpp",
+    "string_view": "cpp",
+    "initializer_list": "cpp",
+    "utility": "cpp"
   },
   "C_Cpp_Runner.cCompilerPath": "gcc",
   "C_Cpp_Runner.cppCompilerPath": "g++",

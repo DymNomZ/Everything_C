@@ -22,10 +22,24 @@ int Min_Heap::get_size(){
     return heap_size;
 }
 
+//tried to integrate sir's tree print code
+void Min_Heap::print_tree(string prefix, int n, bool isLeft) {
+    cout << prefix;
+    cout << (isLeft ? "+--L: " : "+--R: " );
+    cout << heap_e[n] << endl;
+    if (get_leftChildIdx(n) < heap_size) {
+        print_tree(prefix + "|   ", get_leftChildIdx(n), true);
+    }
+    if (get_rightChildIdx(n) < heap_size) {
+        print_tree(prefix + "|   ", get_rightChildIdx(n), false);
+    }
+}
+
 void Min_Heap::print_heap(){
     cout << "Printing..." << endl;
     for(int i = 0; i < heap_size; i++) cout << *(heap_e + i) << " ";
-    cout << endl;
+    cout << "Tree Visual: " << endl;
+    print_tree(" ", 0, false);
 }
 
 void Min_Heap::sort(){
@@ -107,14 +121,16 @@ void Min_Heap::heapify_up(int i){
 }
 
 void Min_Heap::heapify_down(int i){
-    if(has_left_child(i) && get_left_child(i) < get_element(i)){
-        swap(get_leftChildIdx(i), i);
-        heapify_down(get_leftChildIdx(i));
-    }
-    if(has_right_child(i) && get_right_child(i) < get_element(i)){
+    //Integrated CodeChum version where right child is priority and comapares to left child
+    if(has_right_child(i) && get_element(i) > get_right_child(i) && get_right_child(i) < get_left_child(i)){
         swap(get_rightChildIdx(i), i);
         heapify_down(get_rightChildIdx(i));
     }
+    else if(has_left_child(i) && get_element(i) > get_left_child(i)){
+        swap(get_leftChildIdx(i), i);
+        heapify_down(get_leftChildIdx(i));
+    }
+    
 }
 
 void Min_Heap::insert(int e){
