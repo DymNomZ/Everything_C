@@ -3,10 +3,12 @@
 #include <string.h>
 #include <queue>
 #include "graph.h"
+#include "vertex.h"
 using namespace std;
 
 class GraphList : public Graph {
-    int matrix[10][10];
+
+    Vertex vlist[10];
     char s_vertices[10];
     int num_vert;
     int s_edges[100];
@@ -17,7 +19,6 @@ class GraphList : public Graph {
     GraphList() {
         num_vert = 0;
         num_edge = 0;
-        memset(matrix, 0, sizeof(matrix));
     }
 
     int numVertices() {
@@ -36,16 +37,24 @@ class GraphList : public Graph {
         return s_edges;
     }
 
-    int getEdge(char u, char v)  {
-        int ui = getIdx(u);
-        int vi = getIdx(v);
+    int getIdx(char x){
+        for(int i = 0; i < num_vert; i++){
+            if(s_vertices[i] == x) return i;
+        }
+        return -1;
+    }
+
+    int getEdge(Vertex* u, Vertex* v)  {
+
+        for(int i = 0; i < u->size; i++){
+            for(int j = 0; j < v->size; j++){
+                if(u->edges[i] == v->edges[j]){
+                    return u->edges[i];
+                }
+            }
+        }
         
-        if(matrix[ui][vi]){
-            return matrix[ui][vi];
-        }
-        else{
-            return 0;
-        }
+        return 0;
     }
     
     bool findEdge(int e){
@@ -60,14 +69,31 @@ class GraphList : public Graph {
         char ev[2] = {'-', '-'};
         
         if(findEdge(e)){
-           for(int i = 0; i < num_vert; i++){
-                for(int j = 0; j < num_vert; j++){
-                    if(matrix[i][j] == e){
-                        ev[0] = s_vertices[i];
-                        ev[1] = s_vertices[j];
+
+            int last = 0;
+            //find first vertext
+            for(int i = 0; i < num_vert; i++){
+                //loop edge array of each vertex
+                for(int j = 0; j < vlist[i].size; j++){
+                    if(vlist[i].edges[j] == e){
+                        ev[0] = vlist[i].elem;
+                        last = i+1;
+                        break;
                     }
                 }
             }
+
+            //find second vertext
+            for(int i = last; i < num_vert; i++){
+                //loop edge array of each vertex
+                for(int j = 0; j < vlist[i].size; j++){
+                    if(vlist[i].edges[j] == e){
+                        ev[1] = vlist[i].elem;
+                        break;
+                    }
+                }
+            }
+
         }
         return ev;
     }
@@ -79,13 +105,6 @@ class GraphList : public Graph {
         if(ev[0] == v) return ev[1];
         else if(ev[1] == v) return ev[0];
         else return '-';
-    }
-    
-    int getV(char v){
-        for(int i = 0; i < num_vert; i++){
-            if(s_vertices[i] == v) return i;
-        }
-        return -1;
     }
 
     int outDegree(char v)  {
@@ -149,13 +168,6 @@ class GraphList : public Graph {
             s_vertices[num_vert++] = x;
             return false;
         }
-    }
-    
-    int getIdx(char x){
-        for(int i = 0; i < num_vert; i++){
-            if(s_vertices[i] == x) return i;
-        }
-        return -1;
     }
 
     bool insertEdge(char u, char v, int x)  {

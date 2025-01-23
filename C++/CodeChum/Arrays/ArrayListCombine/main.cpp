@@ -17,6 +17,10 @@ int main() {
                 cin >> num;
                 curr->add(num);
                 break;
+            case 'z':
+                cin >> num >> pos;
+                curr->addAt(num, pos);
+                break;
             case 's':
                 if (curr == list1) {
                     cout << "Switching to list2" << endl;

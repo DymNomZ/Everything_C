@@ -16,14 +16,38 @@ class ArrayList : public List {
         size = 0;
     }
 
+    void grow(){
+        capacity = ceil(capacity * 1.5);
+        array = (int*)realloc(array, capacity * sizeof(int));
+    }
+
     // TODO add
     void add(int num) {
         if(size >= capacity){
-            capacity = ceil(capacity * 1.5);
-            array = (int*)realloc(array, capacity * sizeof(int));
+            grow();
         }
         array[size++] = num;
 
+    }
+
+    void addAt(int num, int pos){
+        if(pos > size){
+            cout << "Throws logic_error"<< endl;
+            return;
+        }
+
+        if(size + 1 > capacity){
+            grow();
+        }
+
+        int p = pos-1;
+
+        for(int i = size-1; i >= p; i--){
+            array[i+1] = array[i];
+        }
+
+        array[p] = num;
+        size++; 
     }
 
     // TODO remove
